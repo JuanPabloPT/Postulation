@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class PostulationController {
 
     @Autowired
-    PostulationService postulationService;
+    private PostulationService postulationService;
 
     @GetMapping
     public ResponseEntity<List<Postulation>> listAllPostulation() {

@@ -25,7 +25,12 @@ public class PostulationServiceImpl implements PostulationService {
 
     @Override
     public List<Postulation> findPostulationAll() {
-        return postulationRepository.findAll();
+        List<Postulation> postulations = postulationRepository.findAll();
+        postulations.forEach(postulation -> {
+            postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+        });
+        if (postulations == null) {return null;}
+        return postulations;
     }
 
     @Override
@@ -41,30 +46,19 @@ public class PostulationServiceImpl implements PostulationService {
     public void deletePostulation(Long id){
         Postulation postulation = this.getPostulation(id);
         if (postulation==null){
-            return; }
+            return;
+        }
         postulationRepository.delete(postulation);
     }
 
-    /*@Override
+    @Override
     public Postulation getPostulation(Long id){
         Postulation postulation = postulationRepository.findById(id).orElse(null);
-        if (postulation != null){
-            //JobOffer jobOffer = jobOfferClient.getJobOffer(postulation.getJobOfferId()).getBody();
-            //postulation.setJobOffer(jobOffer);
-
-            //List<PostulantsCV> listpostulants =postulation.getList().stream().map(postulantsCV -> {
-            //    CV cv = postulantClient.getCV(postulantsCV.getPostulantCVId()).getBody();
-            //    postulantsCV.setCv(cv);
-            //    return postulantsCV;
-            //}).collect(Collectors.toList());
-            //postulation.setList(listpostulants);
+        postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+        if (postulation == null){
+            return null;
         }
         return postulation;
-    }*/
-
-    @Override
-    public Postulation getPostulation(Long id) {
-        return postulationRepository.findById(id).orElse(null);
     }
 
     @Override
