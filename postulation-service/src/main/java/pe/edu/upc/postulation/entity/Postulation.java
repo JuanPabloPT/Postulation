@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pe.edu.upc.postulation.model.JobOffer;
 import pe.edu.upc.postulation.model.Postulant;
 
 import javax.persistence.*;
@@ -30,8 +31,8 @@ public class Postulation {
     @Column(name = "joboffer_id")
     private Long jobOfferId;
 
-    //@Transient
-    //private JobOffer jobOffer;
+    @Transient
+    private JobOffer jobOffer;
 
     @Column(name = "postulant_id")
     private Long postulantId;

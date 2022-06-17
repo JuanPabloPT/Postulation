@@ -3,8 +3,10 @@ package pe.edu.upc.postulation.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.postulation.client.JobOfferClient;
 import pe.edu.upc.postulation.client.PostulantClient;
 import pe.edu.upc.postulation.entity.Postulation;
+import pe.edu.upc.postulation.model.JobOffer;
 import pe.edu.upc.postulation.model.Postulant;
 import pe.edu.upc.postulation.repository.PostulationRepository;
 
@@ -20,14 +22,15 @@ public class PostulationServiceImpl implements PostulationService {
     @Autowired
     PostulantClient postulantClient;
 
-    //@Autowired
-    //JobOfferClient jobOfferClient;
+    @Autowired
+    JobOfferClient jobOfferClient;
 
     @Override
     public List<Postulation> findPostulationAll() {
         List<Postulation> postulations = postulationRepository.findAll();
         postulations.forEach(postulation -> {
             postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+            postulation.setJobOffer(jobOfferClient.getJobOffer(postulation.getJobOfferId()).getBody());
         });
         if (postulations == null) {return null;}
         return postulations;
@@ -55,6 +58,7 @@ public class PostulationServiceImpl implements PostulationService {
     public Postulation getPostulation(Long id){
         Postulation postulation = postulationRepository.findById(id).orElse(null);
         postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+        postulation.setJobOffer(jobOfferClient.getJobOffer(postulation.getJobOfferId()).getBody());
         if (postulation == null){
             return null;
         }
@@ -67,6 +71,19 @@ public class PostulationServiceImpl implements PostulationService {
 
         postulations.forEach(postulation -> {
             postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+            postulation.setJobOffer(jobOfferClient.getJobOffer(postulation.getJobOfferId()).getBody());
+        });
+        return postulations;
+
+    }
+
+    @Override
+    public List<Postulation> getPostulationsByJobOffer(JobOffer jobOffer) {
+        List<Postulation> postulations = postulationRepository.findByJobOffer(jobOffer);
+
+        postulations.forEach(postulation -> {
+            postulation.setPostulant(postulantClient.getPostulant(postulation.getPostulantId()).getBody());
+            postulation.setJobOffer(jobOfferClient.getJobOffer(postulation.getJobOfferId()).getBody());
         });
         return postulations;
     }

@@ -47,14 +47,11 @@ public class PostulationController {
     }
 
     @PostMapping
-    public ResponseEntity<Postulation> createPostulation(@Valid @RequestBody Postulation postulation, BindingResult result) {
-        log.info("Creating Postulation : {}", postulation);
-        if (result.hasErrors()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
-        }
-        Postulation postulationDB = postulationService.createPostulation (postulation);
+    public ResponseEntity<Postulation> createPostulation(@RequestBody Postulation postulation) {
+        if (postulation == null) return ResponseEntity.noContent().build();
+        postulationService.createPostulation (postulation);
 
-        return  ResponseEntity.status( HttpStatus.CREATED).body(postulationDB);
+        return  ResponseEntity.status( HttpStatus.CREATED).body(postulation);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -62,24 +59,4 @@ public class PostulationController {
         postulationService.deletePostulation(id);
     }
 
-    private String formatMessage( BindingResult result){
-        List<Map<String,String>> errors = result.getFieldErrors().stream()
-                .map(err ->{
-                    Map<String,String> error =  new HashMap<>();
-                    error.put(err.getField(), err.getDefaultMessage());
-                    return error;
-
-                }).collect(Collectors.toList());
-        ErrorMessage errorMessage = ErrorMessage.builder()
-                .code("01")
-                .messages(errors).build();
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString="";
-        try {
-            jsonString = mapper.writeValueAsString(errorMessage);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return jsonString;
-    }
 }
