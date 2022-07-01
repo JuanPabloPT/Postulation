@@ -11,6 +11,16 @@ spring:
         locator:
           enabled: true
       routes:
+        - id: user-service
+          uri: lb://user-microservice
+          predicates:
+            - Path=/postulant/**
+            - Path=/company/**
+            - Path=/employer/**
+            - Path=/language/**
+            - Path=/sector/**
+            - Path=/skill/**
+            - Path=/study/**
         - id: postulation-service
           uri: lb://postulation-service
           predicates:
