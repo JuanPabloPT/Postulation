@@ -33,7 +33,7 @@ spring:
           - id: postulation-service
             uri: lb://postulation-service
             predicates:
-              - Path=/postulations/**
+              - Path=/postulation/**
           - id: payment-service
             uri: lb://payment-service
             predicates:
