@@ -11,31 +11,9 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: user-service
-          url: lb://user-microservice
-          predicates:
-            - Path=/postulant/**
-            - Path=/company/**
-            - Path=/cv/**
-            - Path=/employer/**
-            - Path=/language/**
-            - Path=/sector/**
-            - Path=/skill/**
-            - Path=/study/**
-        - id: joboffer-service
-          url: lb://joboffer-service
-          predicates:
-            - Path=/joboffers/**
-        - id: subscription-service
-          url: lb://subscription-microservice
-          predicates:
-            - Path=/subscription/**
         - id: postulation-service
           url: lb://postulation-service
           predicates:
             - Path=/postulation/**
-        - id: payment-service
-          url: lb://payment-service
-          predicates:
-            - Path=/payments/**
+
 
