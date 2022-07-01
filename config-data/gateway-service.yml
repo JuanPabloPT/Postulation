@@ -32,9 +32,7 @@ spring:
         - id: joboffer-service
           uri: lb://joboffer-service
           predicates:
-            - Path=/joboffer/**
-            - Path=/contract/**
-            - Path=/interview/**
+            - Path=/joboffer/**,/contract/**,interview/**
         - id: payment-service
           uri: lb://payment-service
           predicates:
