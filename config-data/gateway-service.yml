@@ -14,7 +14,14 @@ spring:
           - id: user-service
             uri: lb://user-service
             predicates:
-              - Path=/users/**
+              - Path=/postulant/**
+              - Path=/company/**
+              - Path=/cv/**
+              - Path=/employer/**
+              - Path=/language/**
+              - Path=/sector/**
+              - Path=/skill/**
+              - Path=/study/**
           - id: joboffer-service
             uri: lb://joboffer-service
             predicates:
