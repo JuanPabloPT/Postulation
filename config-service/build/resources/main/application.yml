@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/djalmadioses/microservice-test.git
+          uri: https://github.com/JuanPabloPT/Postulation.git
           searchPaths: config-data
           default-label: main
   security:
