@@ -3,3 +3,8 @@ spring:
     name: user-service
   config:
     import: optional:configserver:http://root:s3cr3t@localhost:8081
+
+boot:
+  admin:
+    client:
+      url: http://localhost:8086
