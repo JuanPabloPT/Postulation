@@ -11,7 +11,7 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: user-microservice
+        - id: usermanagementmicroservice
           uri: lb://user-service
           predicates:
             - Path=/postulant/**
@@ -30,9 +30,14 @@ spring:
           predicates:
             - Path=/subscription/**
         - id: joboffer-service
-          uri: lb://joboffer-microservice
+          uri: lb://joboffer-service
           predicates:
             - Path=/joboffer/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/invoice/**
+            - Path=/payment/**
 
 
 
