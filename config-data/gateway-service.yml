@@ -27,7 +27,7 @@ spring:
             predicates:
               - Path=/joboffers/**
           - id: subscription-service
-            uri: lb://subscription-service
+            uri: lb://subscription-microservice
             predicates:
               - Path=/subscription/**
           - id: postulation-service
