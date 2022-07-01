@@ -29,6 +29,10 @@ spring:
           uri: lb://subscription-service
           predicates:
             - Path=/subscription/**
+        - id: joboffer-service
+          uri: lb://joboffer-microservice
+          predicates:
+            - Path=/joboffer/**
 
 
 
